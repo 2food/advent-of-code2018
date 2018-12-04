@@ -3,23 +3,38 @@
 	{
 		"selected_items":
 		[
+			[
+				"get",
+				"getLine\t  IO String\nPrelude"
+			]
 		]
 	},
 	"buffers":
 	[
 		{
-			"file": "advent-of-code2018.sublime-project",
+			"contents": "module Main where\n\nimport           Lib\n\nmain :: IO ()\nmain = someFunc\n\nmyFunc (x:xs) = x\n",
+			"file": "app/Main.hs",
+			"file_size": 71,
+			"file_write_time": 131884277888161298,
 			"settings":
 			{
-				"buffer_size": 45,
+				"buffer_size": 90,
 				"line_ending": "Unix"
 			}
 		},
 		{
-			"file": "package.yaml",
+			"file": "src/Lib.hs",
 			"settings":
 			{
-				"buffer_size": 1240,
+				"buffer_size": 88,
+				"line_ending": "Unix"
+			}
+		},
+		{
+			"file": "src/Day1.hs",
+			"settings":
+			{
+				"buffer_size": 263,
 				"encoding": "UTF-8",
 				"line_ending": "Unix"
 			}
@@ -36,6 +51,46 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"lsp",
+				"Preferences: LSP Settings"
+			],
+			[
+				"key bin",
+				"Preferences: Key Bindings"
+			],
+			[
+				"form",
+				"LSP: Format Document"
+			],
+			[
+				"key",
+				"Preferences: Key Bindings"
+			],
+			[
+				"show",
+				"LSP: Show Diagnostics"
+			],
+			[
+				"lsp sett",
+				"Preferences: LSP Settings"
+			],
+			[
+				"key ",
+				"Preferences: Key Bindings"
+			],
+			[
+				"lsp ",
+				"LSP: Enable Language Server in Project"
+			],
+			[
+				"toog",
+				"View: Toggle Open Files in Side Bar"
+			],
+			[
+				"menu",
+				"View: Toggle Menu"
+			],
 			[
 				"indent",
 				"Indentation: Reindent Lines"
@@ -80,8 +135,12 @@
 	],
 	"file_history":
 	[
-		"/home/tormod/.stack/config.yaml",
+		"/home/tormod/.cabal/config",
 		"/home/tormod/Documents/advent-of-code2018/src/Lib.hs",
+		"/home/tormod/Documents/advent-of-code2018/advent-of-code2018.sublime-project",
+		"/home/tormod/Documents/advent-of-code2018/package.yaml",
+		"/home/tormod/Documents/advent-of-code2018/.gitignore",
+		"/home/tormod/.stack/config.yaml",
 		"/home/tormod/.aws/config",
 		"/home/tormod/.aws/credentials",
 		"/home/tormod/Documents/vilect/profiles.clj",
@@ -92,7 +151,7 @@
 	],
 	"find":
 	{
-		"height": 0.0
+		"height": 39.0
 	},
 	"find_in_files":
 	{
@@ -106,6 +165,10 @@
 		"case_sensitive": false,
 		"find_history":
 		[
+			"xs",
+			"someFunc",
+			"IO",
+			"someFunc"
 		],
 		"highlight": true,
 		"in_selection": false,
@@ -123,29 +186,78 @@
 	"groups":
 	[
 		{
-			"selected": 1,
+			"selected": 2,
 			"sheets":
 			[
 				{
 					"buffer": 0,
-					"file": "advent-of-code2018.sublime-project",
+					"file": "app/Main.hs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 45,
+						"buffer_size": 90,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								39,
-								39
+								72,
+								72
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/JavaScript/JSON.sublime-syntax"
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".",
+									"selector": "source.haskell"
+								}
+							],
+							"lsp_language":
+							{
+								"haskell-ide-engine": "haskell"
+							},
+							"show_definitions": false,
+							"syntax": "Packages/Haskell/Haskell.sublime-syntax"
+						},
+						"translation.x": 0.0,
+						"translation.y": 0.0,
+						"zoom_level": 1.0
+					},
+					"stack_index": 2,
+					"type": "text"
+				},
+				{
+					"buffer": 1,
+					"file": "src/Lib.hs",
+					"semi_transient": false,
+					"settings":
+					{
+						"buffer_size": 88,
+						"regions":
+						{
+						},
+						"selection":
+						[
+							[
+								45,
+								45
+							]
+						],
+						"settings":
+						{
+							"lsp_language":
+							{
+								"haskell-ide-engine": "haskell"
+							},
+							"show_definitions": false,
+							"syntax": "Packages/Haskell/Haskell.sublime-syntax"
 						},
 						"translation.x": 0.0,
 						"translation.y": 0.0,
@@ -155,26 +267,43 @@
 					"type": "text"
 				},
 				{
-					"buffer": 1,
-					"file": "package.yaml",
+					"buffer": 2,
+					"file": "src/Day1.hs",
 					"semi_transient": false,
 					"settings":
 					{
-						"buffer_size": 1240,
+						"buffer_size": 263,
 						"regions":
 						{
 						},
 						"selection":
 						[
 							[
-								698,
-								698
+								35,
+								35
 							]
 						],
 						"settings":
 						{
-							"syntax": "Packages/YAML/YAML.sublime-syntax",
-							"tab_size": 4,
+							"auto_complete_triggers":
+							[
+								{
+									"characters": "<",
+									"selector": "text.html"
+								},
+								{
+									"characters": ".",
+									"selector": "source.haskell"
+								}
+							],
+							"auto_name": "",
+							"lsp_language":
+							{
+								"haskell-ide-engine": "haskell"
+							},
+							"show_definitions": false,
+							"syntax": "Packages/Haskell/Haskell.sublime-syntax",
+							"tab_size": 2,
 							"translate_tabs_to_spaces": true
 						},
 						"translation.x": 0.0,
@@ -189,7 +318,7 @@
 	],
 	"incremental_find":
 	{
-		"height": 0.0
+		"height": 26.0
 	},
 	"input":
 	{
@@ -218,15 +347,27 @@
 		]
 	},
 	"menu_visible": true,
+	"output.diagnostics":
+	{
+		"height": 200.0
+	},
+	"output.exec":
+	{
+		"height": 120.0
+	},
 	"output.find_results":
 	{
 		"height": 0.0
+	},
+	"output.references":
+	{
+		"height": 120.0
 	},
 	"pinned_build_system": "",
 	"project": "advent-of-code2018.sublime-project",
 	"replace":
 	{
-		"height": 0.0
+		"height": 48.0
 	},
 	"save_all_on_build": true,
 	"select_file":
@@ -235,6 +376,10 @@
 		"last_filter": "",
 		"selected_items":
 		[
+			[
+				"",
+				"src/Lib.hs"
+			]
 		],
 		"width": 0.0
 	},
@@ -264,7 +409,7 @@
 	"show_open_files": false,
 	"show_tabs": true,
 	"side_bar_visible": true,
-	"side_bar_width": 225.0,
+	"side_bar_width": 309.0,
 	"status_bar_visible": true,
 	"template_settings":
 	{
