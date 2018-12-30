@@ -10,8 +10,8 @@ import           Data.Maybe                     ( fromMaybe )
 
 readInt :: String -> Int
 readInt ""         = error "wæææ"
-readInt ('+' : ns) = read ns :: Int
-readInt ns         = read ns :: Int
+readInt ('+' : cs) = read cs :: Int
+readInt cs         = read cs :: Int
 
 readInts :: String -> Char -> [Int]
 readInts "" _  = []
@@ -47,3 +47,4 @@ firstDuplicateFrequency :: IO Int
 firstDuplicateFrequency = do
     ints <- readIntFile filename
     return $ repeatFreqUntilDup ints
+ 
