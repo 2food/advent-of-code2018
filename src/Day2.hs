@@ -42,3 +42,33 @@ getChecksum :: IO Int
 getChecksum = do
     ids <- readIdFile idfile
     return (checksum ids)
+
+-- Part 2
+
+equalWithTolerance :: Int -> String -> String -> Bool
+equalWithTolerance _ [] [] = True
+equalWithTolerance _ [] _  = False
+equalWithTolerance _ _ []  = False
+equalWithTolerance n (x:xs) (y:ys) | x == y    = equalWithTolerance n xs ys
+                                   | otherwise = n > 0 && equalWithTolerance (n-1) xs ys
+
+isOneOffFrom :: String -> String -> Bool
+isOneOffFrom = equalWithTolerance 1
+
+allOneOff' :: [String] -> [String] -> [String]
+allOneOff' [] acc = acc
+allOneOff' (s:ss) acc | any matches acc || any matches ss = allOneOff' ss (s:acc)
+                      | otherwise                         = allOneOff' ss acc
+                        where matches = isOneOffFrom s
+
+allOneOff :: [String] -> [String]
+allOneOff ss = allOneOff' ss []
+
+common :: String -> String -> String
+common s1 s2 = map fst (filter (uncurry (==)) (zip s1 s2))
+
+getCommon :: IO String
+getCommon = do
+    ids <- readIdFile idfile
+    let [s1, s2] = allOneOff ids -- in the given data there are only two similar ids
+    return (common s1 s2)
