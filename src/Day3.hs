@@ -1,16 +1,20 @@
 module Day3 where
 
-import           Data.Matrix                   as M
 import           Util                           ( split )
+import qualified Data.Map.Strict               as Map
 
 type ID = Int
 type Width = Int
 type Height = Int
-type Area = Matrix Int
+type MarginLeft = Int
+type MarginTop = Int
 
-data Claim = C ID Area deriving Show
+data Claim = C ID MarginLeft MarginTop Width Height deriving Show
 
-data Patch = P [ID] Area
+type Pos = (Int, Int)
+type PatchMap = Map.Map Pos Int 
+data Patch = P [ID] PatchMap deriving Show
+emptyPatch = P [] Map.empty
 
 claimfile = "resources/day3.txt"
 
@@ -19,16 +23,16 @@ readID ('#' : id) = (read id) :: ID
 readMargs s =
     let (mleft : mtop : _) = split ',' s
     in  (read mleft :: Int, read (init mtop) :: Int)
-readArea s =
-    let (width : height : _) = split 'x' s
-    in  M.fromList (read width :: Width) (read height :: Height) (repeat 1)
+readArea a =
+    let (width : height : _) = split 'x' a
+    in  (read width :: Width, read height :: Height)
 
 readClaim :: String -> Claim
 readClaim s = case words s of
     (i : _ : margs : area : _) ->
-        let (mleft, mtop) = (readMargs margs)
-         in let (width, height) = (readArea area)
-        in  C (readID i) (makeMatrix mleft mtop width height) 
+        let (mleft, mtop) = readMargs margs
+        in  let (width, height) = readArea area
+            in  C (readID i) mleft mtop width height
     _ -> error $ "couln't read claim " ++ s
 
 readClaims :: IO [Claim]
@@ -37,34 +41,26 @@ readClaims = do
     let claims = map readClaim (lines file)
     return claims
 
-addClaim :: Patch -> Claim -> Patch
-addClaim (P ids parea) (C id carea) = P (id:ids) (addMatrices parea carea)
+claimToPoss :: Claim -> [Pos]
+claimToPoss (C _ ml mt w h) = [(x,y) | x <- [ml+1..ml+w],
+                                       y <- [mt+1..mt+h]]
 
+addPoss :: PatchMap -> [Pos] -> PatchMap
+addPoss = foldr (\p pm -> Map.insertWith (+) p 1 pm)
 
+addClaim ::  Claim -> Patch -> Patch
+addClaim (C id ml mt w h) (P ids pmap) = 
+    P (id : ids) (addPoss pmap (claimToPoss (C id ml mt w h)))
 
-countOverlappedInches :: Matrix Int -> Int
-countOverlappedInches m = undefined
+addClaims :: [Claim] -> Patch -> Patch
+addClaims cs p = foldr addClaim p cs
+
+countOverlappingInches :: Patch -> Int
+countOverlappingInches (P _ pmap) = 
+    foldr (\x acc -> if x > 1 then (acc+1) else acc) 0 pmap
 
 findOverlaps :: IO Int
 findOverlaps = do
     claims <- readClaims
-    let m = genMatrix claims
-    printMatrix m
-    return (countOverlappedInches m)
-
-someMatrix :: Matrix Int
-someMatrix = M.matrix 5 5 (const 0)
-
-someOtherMatrix :: Matrix Int
-someOtherMatrix = M.matrix 10 10 (const 1)
-
-printMatrix m = putStr $ M.prettyMatrix m ++ "\n"
-
-adjustMatrixSizes :: Matrix Int -> Matrix Int -> (Matrix Int, Matrix Int)
-adjustMatrixSizes m1 m2 | M.nrows m1 > M.nrows m2 = 
-    adjustMatrixSizes (M.extendTo 0 (M.nrows m2) (M.nrows m1) m1) m2
-                        | otherwise = (m1, m2)
-
-addMatrices :: Matrix Int -> Matrix Int -> Matrix Int
-addMatrices m1 m2 = let (m1', m2') = adjustMatrixSizes m1 m2 in 
-     M.elementwiseUnsafe (+) m1' m2'
+    let santacloth = addClaims claims emptyPatch
+    return (countOverlappingInches santacloth)
